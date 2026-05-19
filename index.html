@@ -85,7 +85,7 @@
       margin-bottom: var(--space-md);
     }
 
-    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s var(--transition), transform 0.7s var(--transition); }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s var(--transition), transform 0.7s var(--transition); will-change: opacity, transform; contain: layout; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
@@ -214,12 +214,12 @@
       width: 100%;
     }
 
-    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 500; color: var(--accent2); border: 1px solid var(--border); padding: 0.3rem 0.9rem; border-radius: 99px; margin-bottom: 1.8rem; background: rgba(124, 58, 237, 0.08); animation: fadeSlideDown 0.8s var(--transition) both; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 500; color: var(--accent2); border: 1px solid var(--border); padding: 0.3rem 0.9rem; border-radius: 99px; margin-bottom: 1.8rem; background: rgba(124, 58, 237, 0.08); animation: fadeIn 0.8s var(--transition) both; }
     .hero-badge-dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; animation: pulse-dot 2s infinite; }
 
     @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
 
-    .hero-title { font-family: var(--font-head); font-size: clamp(2.8rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin-bottom: 1rem; animation: fadeSlideDown 0.8s 0.1s var(--transition) both; }
+    .hero-title { font-family: var(--font-head); font-size: clamp(2.8rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin-bottom: 1rem; animation: fadeIn 0.8s 0.1s var(--transition) both; }
 
     .hero-typing-wrap {
       font-family: var(--font-head);
@@ -235,15 +235,15 @@
       /* FIX: le texte passe à la ligne si trop long, jamais de scroll horizontal */
       word-break: break-word;
       overflow-wrap: break-word;
-      animation: fadeSlideDown 0.8s 0.2s var(--transition) both;
+      animation: fadeIn 0.8s 0.2s var(--transition) both;
     }
     #typing-text { color: var(--accent2); font-weight: 600; }
     #typing-cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--accent); margin-left: 2px; vertical-align: middle; animation: blink 0.9s steps(1) infinite; }
     @keyframes blink { 50% { opacity: 0; } }
 
-    .hero-desc { font-size: 1.05rem; color: var(--text-muted); max-width: 540px; line-height: 1.75; margin-bottom: 2.5rem; animation: fadeSlideDown 0.8s 0.3s var(--transition) both; }
+    .hero-desc { font-size: 1.05rem; color: var(--text-muted); max-width: 540px; line-height: 1.75; margin-bottom: 2.5rem; animation: fadeIn 0.8s 0.3s var(--transition) both; }
 
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; animation: fadeSlideDown 0.8s 0.4s var(--transition) both; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; animation: fadeIn 0.8s 0.4s var(--transition) both; }
 
     .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.78rem 1.6rem; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; border: none; transition: transform 0.2s, box-shadow 0.3s, background 0.3s; }
     .btn:hover { transform: translateY(-2px); }
@@ -254,10 +254,12 @@
     .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .btn-ghost:hover { border-color: var(--accent); background: rgba(124,58,237,0.08); }
 
-    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: var(--text-dim); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; animation: fadeSlideDown 0.8s 1s var(--transition) both; }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: var(--text-dim); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; animation: fadeIn 0.8s 1s var(--transition) both; }
     .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--accent), transparent); animation: scrollLine 1.8s ease-in-out infinite; }
     @keyframes scrollLine { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
     @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+    /* FIX: animation sans transform pour éviter les problèmes de scroll mobile */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* ═══ ABOUT ═══ */
     #about { background: var(--bg2); }
